@@ -2,6 +2,57 @@
 
 let humanScore = 0;
 let computerScore = 0;
+let humanChoiceValue = "";
+
+const buttonRock = document.getElementById('rock');
+const buttonScissor = document.getElementById('scissor');
+const buttonPaper = document.getElementById('paper');
+const result = document.getElementById('result')
+
+function OnButtonPaper() {
+    humanChoiceValue = buttonPaper.value
+    const computerSelection = getComputerChoice();
+    playRound(humanChoiceValue,computerSelection)
+    result.textContent= "Result --- human : " + humanScore + "- Computer : " + computerScore
+    winner();
+    loser();
+}
+
+function OnButtonScissor() {
+    humanChoiceValue = buttonScissor.value
+    const computerSelection = getComputerChoice();
+    playRound(humanChoiceValue,computerSelection)
+    result.textContent= "Result --- human : " + humanScore + "- Computer : " + computerScore
+    winner();
+    loser();
+}
+
+function OnButtonRock() {
+    humanChoiceValue = buttonRock.value
+    const computerSelection = getComputerChoice();
+    playRound(humanChoiceValue,computerSelection)
+    result.textContent= "Result --- human : " + humanScore + "- Computer : " + computerScore
+    winner();
+    loser();
+}
+
+function winner() {
+    if(humanScore === 5 && computerScore < 5) {
+        result.textContent= "Congrats ! you win" + humanScore + " / " + computerScore
+        buttonPaper.disabled = true;
+        buttonScissor.disabled = true;
+        buttonRock.disabled = true;
+    }
+} 
+
+function loser () {
+    if(computerScore === 5 && humanScore < 5) {
+        result.textContent= "you lose ! " + humanScore + " / " + computerScore
+        buttonPaper.disabled = true;
+        buttonScissor.disabled = true;
+        buttonRock.disabled = true;
+    }
+}
 
 function getComputerChoice() {
     const rdm = Math.random();
@@ -18,19 +69,14 @@ function getComputerChoice() {
     return string;
 }
 
-function getHumanChoice(){
-    const choice = prompt();
-    return choice
-}
 
 function youWin(humanChoice,computerChoice) {
 
     let humanChoiceInsensitive = humanChoice.toLowerCase();
-    const winMessage = "you win!" + " " +  humanChoiceInsensitive + " beats " + computerChoice;
+    //const winMessage = "you win!" + " " +  humanChoiceInsensitive + " beats " + computerChoice;
     if((humanChoiceInsensitive === "rock" && computerChoice === "scissor") ||
     (humanChoiceInsensitive === "scissor" && computerChoice === "paper") ||
     (humanChoiceInsensitive === "paper" && computerChoice === "rock")) {
-        console.log(winMessage)
         humanScore++;
     }
 
@@ -40,11 +86,10 @@ function youWin(humanChoice,computerChoice) {
 function youLose(humanChoice,computerChoice) {
 
     let humanChoiceInsensitive = humanChoice.toLowerCase();
-    const loseMessage = "you lose!" + " " + computerChoice + " beats " + humanChoiceInsensitive;
+    //const loseMessage = "you lose!" + " " + computerChoice + " beats " + humanChoiceInsensitive;
     if((humanChoiceInsensitive === "paper" && computerChoice === "scissor") ||
     (humanChoiceInsensitive === "rock" && computerChoice === "paper") ||
     (humanChoiceInsensitive === "scissor" && computerChoice === "rock")) {
-        console.log(loseMessage)
         computerScore++
     }
     return computerScore
@@ -63,30 +108,9 @@ function youDraw(humanChoice,computerChoice) {
 
 
 function playRound(humanChoice,computerChoice) {
-    
     youWin(humanChoice,computerChoice)
     youLose(humanChoice,computerChoice)
     youDraw(humanChoice,computerChoice)
-
 }
 
 
-
-function playGame() {
-
-    for(let i = 0; i < 5; i++) {
-        const computerSelection = getComputerChoice();
-        const humanSelection = getHumanChoice();
-        playRound(humanSelection,computerSelection);
-        console.log(humanScore + "/" + computerScore)
-    }
-    if(humanScore > computerScore) {
-        console.log("You win the game ! " + humanScore + "/" + computerScore)
-    } else if (humanScore < computerScore) {
-        console.log("You lose the game ! " + humanScore + "/" + computerScore)
-    } else {
-        console.log("it's a tie !")
-    }
-}
-
-playGame();
