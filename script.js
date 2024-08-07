@@ -101,7 +101,7 @@ function youDraw(humanChoice,computerChoice) {
     if((humanChoiceInsensitive === "paper" && computerChoice === "paper") ||
     (humanChoiceInsensitive === "rock" && computerChoice === "rock") ||
     (humanChoiceInsensitive === "scissor" && computerChoice === "scissor")) {
-        console.log("draw !")
+        // not usable
     }
 
 }
